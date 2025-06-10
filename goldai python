@@ -1,0 +1,23 @@
+from telegram.ext import Updater, CommandHandler, CallbackContext
+from telegram import Update
+
+TOKEN = "7602331201:AAE-_GyTJ46Gy4zKAq590LYehMISCbWx63I"
+
+def start(update: Update, context: CallbackContext):
+    update.message.reply_text("مرحبا بك في GoldAI Telegram Bot!")
+
+def notify_trade(update: Update, context: CallbackContext):
+    # مثال لإرسال تنبيه الدخول مع SL و TP
+    message = "🔔 وقت الدخول: شراء ذهب\n🚫 وقف الخسارة: 2 دولار\n💰 أخذ الربح: 10 دولار"
+    update.message.reply_text(message)
+
+def main():
+    updater = Updater(TOKEN, use_context=True)
+    dp = updater.dispatcher
+    dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(CommandHandler("trade", notify_trade))
+    updater.start_polling()
+    updater.idle()
+
+if __name__ == '__main__':
+    main()
